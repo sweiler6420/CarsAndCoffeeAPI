@@ -56,16 +56,35 @@ def get_auth() -> str:
     client_id = secret.get('CLIENT_ID')
     client_secret = secret.get('CLIENT_SECRET')
     api_audience = secret.get('API_AUDIENCE')
-    api_mgmt_audience = secret.get('API_MGMT_AUDIENCE')
-    username = secret.get('AUTH0_USER_ID')
-    password = secret.get('AUTH0_USER_SECRET')
 
     token = GetToken(domain)
 
-    mgmt_resp = token.client_credentials(client_id=client_id, client_secret=client_secret, audience=api_mgmt_audience)
+    mgmt_resp = token.client_credentials(client_id=client_id, client_secret=client_secret, audience=api_audience)
 
     mgmt_api_token = mgmt_resp['access_token']
 
-    return mgmt_api_token['access_token']
+    return mgmt_api_token
 
-print(get_auth())
+class Settings(BaseSettings):
+    # API CONFIG SETTINGS
+    API_VERSION: str = '1.0.0'
+    API_MAJOR_VERSION: str = API_VERSION.split('.')[0]
+    API_TITLE: str = f'Cars and Coffee - v{API_MAJOR_VERSION}'
+
+    # DB CONNECTION POOL CONFIG SETTINGS
+    MIN_DB_POOL_SIZE: int = 1
+    MAX_DB_POOL_SIZE: int = 1
+
+    # ES CONFIG SETTINGS
+    SEARCH_ENABLED: bool = False
+    SEARCH_QUEUE_URL: str = ''
+    SEARCH_INDEX_NAMES: Dict[str, str] = {}
+
+    # CORS config settings
+    ALLOW_ORIGIN_REGEX: str = 'https://.*\.townhouse_dev\.com'
+
+    # AUTH0
+    ALGORITHMS = ["RS256"]
+
+def get_settings() -> BaseSettings:
+    return Settings()
