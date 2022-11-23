@@ -1,0 +1,9 @@
+.venv
+venv
+.env
+.idea
+app_password.exclude
+__pycache__
+script.py.mako
+alembic.ini
+alembic*
