@@ -82,8 +82,36 @@ alembic upgrade head
 ## RUN GET REQUEST WITH CURL
 1. Run command below and update the ?= value to whatever value you want to try to query
 ```
-curl --request GET "localhost:8000?username=sweiler6420"
+curl --request GET "localhost:8000?username={username}"
 ```
 
 ## FASTAPI SWAGGER DOCS
 1. Once the api is running with uvicorn, go to http://localhost:8000/docs
+
+## GENERATE SECRET KEY
+1. Follow directions according to this website to install openssl
+
+2. Run below command
+```
+openssl rand -hex 32
+```
+
+## SETTING UP ENV FILE
+1. Create ".env" file in ROOT folder. In this case it would be in the "\cacapi" folder
+
+2. Add all environment variable in this file as shown below
+```
+DATABASE_HOSTNAME={hostname}
+DATABASE_PORT={8000}
+DATABASE_USERNAME={username}
+DATABASE_PASSWORD={password}
+DATABASE_NAME={db name}
+SECRET_KEY={fnh5ruji43wobneajitogf589034wgebni5490wbhe945jort23n546kyhfed}
+ALGORITHM={algorithm}
+ACCESS_TOKEN_EXPIRE_MINUTES={expiration in minutes}
+```
+
+3. Please note you must reach out to me to get the real values for above env data.
+
+4. DO NOT REMOVE ".env" FROM GITIGNORE FILE
+
