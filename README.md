@@ -118,3 +118,9 @@ ACCESS_TOKEN_EXPIRE_MINUTES={expiration in minutes}
 ## Deploying API to Railway.app
 1. Follow directions as per https://faun.pub/deploy-a-fastapi-website-to-railway-c08df2a1e878
 
+2. Remove bitbucket origin or add new github origin with https://github.com/sweiler6420/CarsAndCoffeeAPI.git url
+
+3. Push up changes
+
+4. THIS WILL CHANGE
+
