@@ -115,3 +115,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES={expiration in minutes}
 
 4. DO NOT REMOVE ".env" FROM GITIGNORE FILE
 
+## Deploying API to Railway.app
+1. Follow directions as per https://faun.pub/deploy-a-fastapi-website-to-railway-c08df2a1e878
+
