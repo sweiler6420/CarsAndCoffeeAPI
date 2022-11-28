@@ -1,61 +1,29 @@
-from fastapi import FastAPI, Depends
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from sqlalchemy.orm import Session
-from passlib.hash import bcrypt
-from datetime import date
-from uuid import uuid4
-import jwt
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from . import models
+from .database import engine
+from .routers import post, user, auth, vote
 
-from cac.api.dependencies import get_db
-from cac.api.models.users import UserInputModel
-from cac.api.schemas.users import Users
-
-api_signature = 'carsandcoffeeapiv1'
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
+origins = ["*"]
 
-async def authenticate_user(username: str, password: str):
-    user = Users.get(username=username)
-    if not user:
-        return False
-    if not user.verify_password(password):
-        return False
-    return user
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@app.post("/client/login")
-async def generate_token(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = await authenticate_user(form_data.username, form_data.password)
+app.include_router(post.router)
+app.include_router(user.router)
+app.include_router(auth.router)
+app.include_router(vote.router)
 
-    if not user:
-        return {"error": "invalid credentials"}
-
-    token = jwt.encode(user.dict(), api_signature)
-
-    return {"access_token": token, "token_type": "bearer"}
-
-@app.post("/")
-async def create_user(input: UserInputModel, db: Session = Depends(get_db)):
-    new_uuid = uuid4()
-    to_create = Users(
-        id=new_uuid,
-        username=input.username,
-        email=input.email,
-        password=bcrypt.hash(input.password),
-        creation_date=date.today()
-    )
-    db.add(to_create)
-    db.commit()
-    return {"success": True}
-    
 
 @app.get("/")
-async def get_user_by_username(username: str, db: Session = Depends(get_db)):
-    return db.query(Users).filter(Users.username == username).first()
-
-@app.delete("/")
-async def delete_user_by_username(username: str, db: Session = Depends(get_db)):
-    db.query(Users).filter(Users.username == username).delete()
-    db.commit()
-    return {"success": True}
+def root():
+    return {"message": "Hello World"}
