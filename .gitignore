@@ -7,3 +7,4 @@ __pycache__
 script.py.mako
 alembic.ini
 alembic*
+dev_deploy.bat
