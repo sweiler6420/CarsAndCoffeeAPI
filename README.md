@@ -115,3 +115,20 @@ ACCESS_TOKEN_EXPIRE_MINUTES={expiration in minutes}
 
 4. DO NOT REMOVE ".env" FROM GITIGNORE FILE
 
+## Deploying API to Railway.app
+1. Follow directions as per https://faun.pub/deploy-a-fastapi-website-to-railway-c08df2a1e878
+
+2. Pull master into local branch
+
+3. Remove bitbucket origin
+
+4. Add new github origin with https://github.com/sweiler6420/CarsAndCoffeeAPI.git url
+
+5. Commit and push local branch to new github origin into dev branch (for development)
+
+6. Remove github origin
+
+7. Add bitbucket origin back
+
+4. THIS WILL MOST LIKELY CHANGE!
+
