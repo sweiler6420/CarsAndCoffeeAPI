@@ -9,6 +9,8 @@ class Settings(BaseSettings):
     secret_key: str
     algorithm: str
     access_token_expire_minutes: int
+    s3_access_key_id: str
+    s3_secret_access_key: str
 
     class Config:
         env_file = ".env"

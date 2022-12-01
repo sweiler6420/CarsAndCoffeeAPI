@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from . import models
 from .database import engine
-from .routers import post, user, auth, vote, event
+from .routers import post, user, auth, vote, event, image
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -23,6 +23,7 @@ app.include_router(user.router)
 app.include_router(auth.router)
 app.include_router(vote.router)
 app.include_router(event.router)
+app.include_router(image.router)
 
 
 @app.get("/")

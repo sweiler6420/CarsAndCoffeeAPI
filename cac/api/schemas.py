@@ -5,6 +5,11 @@ from uuid import UUID
 
 from pydantic.types import conint
 
+class ImageBase(BaseModel):
+    parent_type: str
+    location: str
+    parent_id: UUID
+
 class EventBase(BaseModel):
     name: str
     description: str
@@ -55,6 +60,15 @@ class EventOut(EventBase):
     class Config:
         orm_mode = True
 
+class ImageOut(ImageBase):
+    id: UUID
+    created_at: datetime
+    owner_id: UUID
+    owner: UserOut
+
+    class Config:
+        orm_mode = True
+
 class UserCreate(BaseModel):
     email: EmailStr
     username: str
@@ -74,3 +88,19 @@ class TokenData(BaseModel):
 class Vote(BaseModel):
     post_id: UUID
     dir: conint(le=1)
+
+class S3Fields(BaseModel):
+    key: UUID
+    AWSAccessKeyId: str
+    policy: str
+    signature: str
+
+    class Config:
+        orm_mode = True
+
+class S3SecureUrl(BaseModel):
+    url: str
+    fields: S3Fields
+
+    class Config:
+        orm_mode = True

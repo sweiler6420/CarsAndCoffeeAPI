@@ -67,7 +67,7 @@ pip freeze > requirements.txt
 
 1. Follow video tutorial https://www.youtube.com/watch?v=Lj7ivxUvSog
 
-## Running FASTAPI
+## Running FASTAPI Locally
 
 1. Run fast api server locally by running
 
