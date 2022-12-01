@@ -5,6 +5,15 @@ from uuid import UUID
 
 from pydantic.types import conint
 
+class EventBase(BaseModel):
+    name: str
+    description: str
+    street: str
+    city: str
+    zip_code: str
+    state: str
+    event_timestamp: datetime
+
 class PostBase(BaseModel):
     title: str
     content: str
@@ -33,6 +42,15 @@ class Post(PostBase):
 class PostOut(BaseModel):
     Post: Post
     votes: int
+
+    class Config:
+        orm_mode = True
+
+class EventOut(EventBase):
+    id: UUID
+    created_at: datetime
+    owner_id: UUID
+    owner: UserOut
 
     class Config:
         orm_mode = True
