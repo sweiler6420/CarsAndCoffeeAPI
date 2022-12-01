@@ -6,6 +6,22 @@ from sqlalchemy.sql.sqltypes import TIMESTAMP
 
 from .database import Base
 
+class Event(Base):
+    __tablename__ = "events"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, nullable=False, server_default=text('gen_random_uuid()'))
+    name = Column(String, nullable=False)
+    description = Column(String, nullable=False)
+    street = Column(String, nullable=False)
+    city = Column(String, nullable=False)
+    zip_code = Column(String, nullable=False)
+    state = Column(String, nullable=False)
+    event_timestamp = Column(TIMESTAMP(timezone=True), nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
+    owner_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+
+    owner = relationship("User")
+
 class Post(Base):
     __tablename__ = "posts"
 
