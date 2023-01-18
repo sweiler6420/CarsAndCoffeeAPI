@@ -174,4 +174,4 @@ ACCESS_TOKEN_EXPIRE_MINUTES={expiration in minutes}
 
 7. Add bitbucket origin back
 
-8. THIS WILL MOST LIKELY CHANGE!
+8. THIS WILL MOST LIKELY CHANGE
